@@ -32,7 +32,7 @@ class DoublyLinkedList:
         if current_head != None:
             current_head.set_prev_node(new_head)
             new_head.set_next_node(current_head)
-        self.head_node = new_node
+        self.head_node = new_head
         if self.tail_node == None:
             self.tail_node = self.head_node
 
@@ -76,6 +76,8 @@ class DoublyLinkedList:
                 node_to_remove = current_node
                 break
             current_node = current_node.get_next_node()
+        if current_node == None:
+            return None
         if node_to_remove == self.head_node:
             self.remove_head()
         elif node_to_remove == self.tail_node:
@@ -87,4 +89,26 @@ class DoublyLinkedList:
             prev_node.set_next_node(next_node)
         return node_to_remove
 
-    
+    def remove_all_nodes(self, value_to_remove):
+        while self.remove_by_value(value_to_remove) != None:
+            self.remove_by_value(value_to_remove)
+
+    def stringify_list(self):
+        if self.head_node != None:
+            current_node = self.head_node
+            string = ""
+            while current_node != None:
+                string += str(current_node.get_value()) + "\n"
+                current_node = current_node.get_next_node()
+            return string
+        return None
+
+dll = DoublyLinkedList()
+dll.add_to_head(5)
+dll.add_to_head(5)
+dll.add_to_head(3)
+dll.add_to_head(5)
+dll.remove_by_value(1)
+# dll.remove_tail()
+dll.remove_all_nodes(5)
+print(dll.stringify_list())
